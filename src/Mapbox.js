@@ -425,7 +425,7 @@ export default class App extends React.Component {
         '" fill="' + color + '" />'].join(' ');
         }
 
-        // add the tile        
+    // Join local JSON data with vector tile geometries      
     map.on('load', function() { 
         // Add source for state polygons hosted on Mapbox, based on US Census Data:
         // https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html

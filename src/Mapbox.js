@@ -7,7 +7,6 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiemFjbGluMTIzIiwiYSI6ImNrMG0zNWVsMTAwMnczY3J5d
 
 
 export default class App extends React.Component {
-    // map;
     constructor(props) {
       super(props);
       // this.map = null;
@@ -45,6 +44,29 @@ export default class App extends React.Component {
         // colors to use for the categories
         var colors = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
         
+
+
+        // When a click event occurs on a feature in the places layer, open a popup at the
+        // location of the feature, with description HTML from its properties.
+        map.on('click', 'earthquake_label', function (e) {
+            var coordinates = e.features[0].geometry.coordinates.slice();
+
+            // customize the popup html here
+            var description = e.features[0].properties.description;
+            
+            // Ensure that if the map is zoomed out such that multiple
+            // copies of the feature are visible, the popup appears
+            // over the copy being pointed to.
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+            
+            new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+            });
+
         map.on('load', function () {
         // add a clustered GeoJSON source for a sample set of earthquakes
         map.addSource('earthquakes', {

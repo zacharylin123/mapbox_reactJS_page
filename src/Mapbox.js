@@ -52,7 +52,8 @@ export default class App extends React.Component {
             var coordinates = e.features[0].geometry.coordinates.slice();
 
             // customize the popup html here
-            var description = e.features[0].properties.description;
+            // var description = e.features[0].properties.description;
+            var description = "<h1>Hello World!</h1>"
             
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
@@ -274,14 +275,17 @@ export default class App extends React.Component {
     }
 
     render(){
+        // Important!
+        // Must add a style for the mapbox div
+        // or it will not show on the screen
         const style = {
             position: 'absolute',
             top: 0,
             bottom: 0,
             width: '100%'
           };
-      
-          return <div style={style} ref={el => this.mapContainer = el} />;
+
+          return <div style={style} ref={el => (this.mapContainer = el)} />;
         
     }
 
